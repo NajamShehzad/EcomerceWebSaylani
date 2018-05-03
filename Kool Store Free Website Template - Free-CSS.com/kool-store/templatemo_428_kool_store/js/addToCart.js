@@ -1,20 +1,68 @@
-function addToCart(product){
+var test = 0;
+function addToCart(product) {
+	var cartPrice = 0;
+	var cart
+	if (JSON.parse(localStorage.getItem("addToCart")) !== null) {
+
+		cart = JSON.parse(localStorage.getItem("addToCart"));
+		// for(var i = 0 ; i < cart.length ; i++){
+		// 	if(cart[i].quantity > 1){
+		// 		test = test + (cart[i].quantity * cart[i].price)
+		// 	}
+		// 	else{
+		// 		test += cart[i].price;
+		// 	}
+		// }
+
+	};
+
 	var p = product.parentElement.parentElement;
-	var name = product.innerText;
-	var price = p.getElementsByClassName("price")[0].innerText.replace("$","");
-	
+	var name = p.getElementsByClassName("name")[0].innerText;
+	var price = parseInt(p.getElementsByClassName("price")[0].innerText.replace("$", ""));
+	var id = p.getElementsByClassName("id")[0].innerText;
+
 	var objAddToCart = {
-		name : name,
-		price : price
+		name: name,
+		price: price,
+		id: id,
+		quantity: 1
 	}
-	var cart = JSON.parse(localStorage.getItem("addToCart"));
-	if(JSON.parse(localStorage.getItem("addToCart")) !== null){
+	var pushcon = true;
+
+	if (JSON.parse(localStorage.getItem("addToCart")) !== null) {
+		for (var i = 0; i < cart.length; i++) {//if we found same product it will add +1 in its quantity
+			if (cart[i].id == id) {
+				cart[i].quantity += 1;
+				localStorage.setItem('addToCart', JSON.stringify(cart));
+				pushcon = false;
+			}
+			if (cart[i].quantity > 1) {
+				cartPrice = cartPrice + (cart[i].quantity * cart[i].price)
+				test = cartPrice;
+			}
+			else {
+				cartPrice += cart[i].price;
+				test = cartPrice;
+			}
+
+		}
+		if (pushcon) {
+			
+			cart.push(objAddToCart);//if the product is new it simply add it to our cart
+			localStorage.setItem('addToCart', JSON.stringify(cart));
+			
+		}
+
+	}
+	else {
+		test = objAddToCart.price;
+		cart = [];//if the web is using first time
 		cart.push(objAddToCart);
 		localStorage.setItem('addToCart', JSON.stringify(cart));
 	}
-	else{
-		cart = [];
-		cart.push(objAddToCart);
-		localStorage.setItem('addToCart', JSON.stringify(cart));
-	}
+
+
+
 }
+
+
