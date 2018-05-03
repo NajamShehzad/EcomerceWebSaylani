@@ -1,16 +1,16 @@
-var test = 0;
+var TotalPrice = 0;
 function addToCart(product) {
 	var cartPrice = 0;
-	var cart
+	var cart;
 	if (JSON.parse(localStorage.getItem("addToCart")) !== null) {
 
 		cart = JSON.parse(localStorage.getItem("addToCart"));
 		// for(var i = 0 ; i < cart.length ; i++){
 		// 	if(cart[i].quantity > 1){
-		// 		test = test + (cart[i].quantity * cart[i].price)
+		// 		TotalPrice = TotalPrice + (cart[i].quantity * cart[i].price)
 		// 	}
 		// 	else{
-		// 		test += cart[i].price;
+		// 		TotalPrice += cart[i].price;
 		// 	}
 		// }
 
@@ -38,11 +38,11 @@ function addToCart(product) {
 			}
 			if (cart[i].quantity > 1) {
 				cartPrice = cartPrice + (cart[i].quantity * cart[i].price)
-				test = cartPrice;
+				TotalPrice = cartPrice;
 			}
 			else {
 				cartPrice += cart[i].price;
-				test = cartPrice;
+				TotalPrice = cartPrice;
 			}
 
 		}
@@ -55,7 +55,7 @@ function addToCart(product) {
 
 	}
 	else {
-		test = objAddToCart.price;
+		TotalPrice = objAddToCart.price;
 		cart = [];//if the web is using first time
 		cart.push(objAddToCart);
 		localStorage.setItem('addToCart', JSON.stringify(cart));
