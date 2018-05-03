@@ -47,10 +47,10 @@ function addToCart(product) {
 
 		}
 		if (pushcon) {
-			
+			TotalPrice += objAddToCart.price;
 			cart.push(objAddToCart);//if the product is new it simply add it to our cart
 			localStorage.setItem('addToCart', JSON.stringify(cart));
-			
+
 		}
 
 	}
@@ -64,5 +64,23 @@ function addToCart(product) {
 
 
 }
+setTimeout(function () {
+	var cartPrice = 0;
+	if (JSON.parse(localStorage.getItem("addToCart")) !== null) {
+		var cart = JSON.parse(localStorage.getItem("addToCart"));
+
+		for (var i = 0; i < cart.length; i++) {//if we found same product it will add +1 in its quantity
+
+			if (cart[i].quantity > 1) {
+				cartPrice = cartPrice + (cart[i].quantity * cart[i].price)
+				TotalPrice = cartPrice;
+			}
+			else {
+				cartPrice += cart[i].price;
+				TotalPrice = cartPrice;
+			}
+		}
+	}
+}, 0);
 
 
