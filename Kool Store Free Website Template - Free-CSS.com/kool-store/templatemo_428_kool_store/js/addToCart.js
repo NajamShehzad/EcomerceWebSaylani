@@ -67,7 +67,7 @@ function addToCart(product) {
 
 
 }
-setTimeout(function () {//this is for cart icon to show price and quantity  in global scope
+(function () {//this is for cart icon to show price and quantity  in global scope
 	var cartPrice = 0;
 	if (JSON.parse(localStorage.getItem("addToCart")) !== null) {
 		var cart = JSON.parse(localStorage.getItem("addToCart"));//
@@ -87,6 +87,6 @@ setTimeout(function () {//this is for cart icon to show price and quantity  in g
 			quantity += cart[i].quantity;
 		}
 	}
-}, 0);
+} ());
 
 
